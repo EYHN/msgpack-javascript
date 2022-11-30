@@ -59,14 +59,14 @@ if (msgpack_node) {
 }
 
 if (msgpack_msgpack) {
-  buf = bench('buf = require("@msgpack/msgpack").encode(obj);', msgpack_msgpack.encode, data);
-  obj = bench('obj = require("@msgpack/msgpack").decode(buf);', msgpack_msgpack.decode, buf);
+  buf = bench('buf = require("@eyhn/msgpack-stream").encode(obj);', msgpack_msgpack.encode, data);
+  obj = bench('obj = require("@eyhn/msgpack-stream").decode(buf);', msgpack_msgpack.decode, buf);
   runTest(obj);
 
   const encoder = new msgpack_msgpack.Encoder();
   const decoder = new msgpack_msgpack.Decoder();
-  buf = bench('buf = /* @msgpack/msgpack */ encoder.encode(obj);', (data) => encoder.encode(data), data);
-  obj = bench('obj = /* @msgpack/msgpack */ decoder.decode(buf);', (buf) => decoder.decode(buf), buf);
+  buf = bench('buf = /* @eyhn/msgpack-stream */ encoder.encode(obj);', (data) => encoder.encode(data), data);
+  obj = bench('obj = /* @eyhn/msgpack-stream */ decoder.decode(buf);', (buf) => decoder.decode(buf), buf);
   runTest(obj);
 
   if (process.env["CACHE_HIT_RATE"]) {

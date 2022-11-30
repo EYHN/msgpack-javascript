@@ -1,6 +1,6 @@
 # MessagePack for JavaScript/ECMA-262  <!-- omit in toc -->
 
-[![npm version](https://img.shields.io/npm/v/@msgpack/msgpack.svg)](https://www.npmjs.com/package/@msgpack/msgpack) ![CI](https://github.com/msgpack/msgpack-javascript/workflows/CI/badge.svg) [![codecov](https://codecov.io/gh/msgpack/msgpack-javascript/branch/master/graphs/badge.svg)](https://codecov.io/gh/msgpack/msgpack-javascript) [![minzip](https://badgen.net/bundlephobia/minzip/@msgpack/msgpack)](https://bundlephobia.com/result?p=@msgpack/msgpack) [![tree-shaking](https://badgen.net/bundlephobia/tree-shaking/@msgpack/msgpack)](https://bundlephobia.com/result?p=@msgpack/msgpack)
+[![npm version](https://img.shields.io/npm/v/@eyhn/msgpack-stream.svg)](https://www.npmjs.com/package/@eyhn/msgpack-stream) ![CI](https://github.com/msgpack/msgpack-javascript/workflows/CI/badge.svg) [![codecov](https://codecov.io/gh/msgpack/msgpack-javascript/branch/master/graphs/badge.svg)](https://codecov.io/gh/msgpack/msgpack-javascript) [![minzip](https://badgen.net/bundlephobia/minzip/@eyhn/msgpack-stream)](https://bundlephobia.com/result?p=@eyhn/msgpack-stream) [![tree-shaking](https://badgen.net/bundlephobia/tree-shaking/@eyhn/msgpack-stream)](https://bundlephobia.com/result?p=@eyhn/msgpack-stream)
 
 This is a JavaScript/ECMA-262 implementation of **MessagePack**, an efficient binary serilization format:
 
@@ -14,7 +14,7 @@ This library is a universal JavaScript, meaning it is compatible with all the ma
 
 ```typescript
 import { deepStrictEqual } from "assert";
-import { encode, decode } from "@msgpack/msgpack";
+import { encode, decode } from "@eyhn/msgpack-stream";
 
 const object = {
   nil: null,
@@ -72,10 +72,10 @@ deepStrictEqual(decode(encoded), object);
 
 ## Install
 
-This library is published to `npmjs.com` as [@msgpack/msgpack](https://www.npmjs.com/package/@msgpack/msgpack).
+This library is published to `npmjs.com` as [@eyhn/msgpack-stream](https://www.npmjs.com/package/@eyhn/msgpack-stream).
 
 ```shell
-npm install @msgpack/msgpack
+npm install @eyhn/msgpack-stream
 ```
 
 ## API
@@ -87,7 +87,7 @@ It encodes `data` into a single MessagePack-encoded object, and returns a byte a
 for example:
 
 ```typescript
-import { encode } from "@msgpack/msgpack";
+import { encode } from "@eyhn/msgpack-stream";
 
 const encoded: Uint8Array = encode({ foo: "bar" });
 console.log(encoded);
@@ -96,7 +96,7 @@ console.log(encoded);
 If you'd like to convert an `uint8array` to a NodeJS `Buffer`, use `Buffer.from(arrayBuffer, offset, length)` in order not to copy the underlying `ArrayBuffer`, while `Buffer.from(uint8array)` copies it:
 
 ```typescript
-import { encode } from "@msgpack/msgpack";
+import { encode } from "@eyhn/msgpack-stream";
 
 const encoded: Uint8Array = encode({ foo: "bar" });
 
@@ -129,7 +129,7 @@ The `buffer` must include a single encoded object. If the `buffer` includes extr
 for example:
 
 ```typescript
-import { decode } from "@msgpack/msgpack";
+import { decode } from "@eyhn/msgpack-stream";
 
 const encoded: Uint8Array;
 const object = decode(encoded);
@@ -161,7 +161,7 @@ This function is not recommended to decode a MessagePack binary via I/O stream i
 for example:
 
 ```typescript
-import { decode } from "@msgpack/msgpack";
+import { decode } from "@eyhn/msgpack-stream";
 
 const encoded: Uint8Array;
 
@@ -181,7 +181,7 @@ This function works asynchronously, and might CPU resources more efficiently com
 This function is designed to work with whatwg `fetch()` like this:
 
 ```typescript
-import { decodeAsync } from "@msgpack/msgpack";
+import { decodeAsync } from "@eyhn/msgpack-stream";
 
 const MSGPACK_TYPE = "application/x-msgpack";
 
@@ -200,7 +200,7 @@ It is alike to `decodeAsync()`, but only accepts a `stream` that includes an arr
 for example:
 
 ```typescript
-import { decodeArrayStream } from "@msgpack/msgpack";
+import { decodeArrayStream } from "@eyhn/msgpack-stream";
 
 const stream: AsyncIterator<Uint8Array>;
 
@@ -219,7 +219,7 @@ In other words, it could decode an unlimited stream and emits a decoded item one
 for example:
 
 ```typescript
-import { decodeMultiStream } from "@msgpack/msgpack";
+import { decodeMultiStream } from "@eyhn/msgpack-stream";
 
 const stream: AsyncIterator<Uint8Array>;
 
@@ -237,7 +237,7 @@ This function is available since v2.4.0; previously it was called as `decodeStre
 
 ```typescript
 import { deepStrictEqual } from "assert";
-import { Encoder, Decoder } from "@msgpack/msgpack";
+import { Encoder, Decoder } from "@eyhn/msgpack-stream";
 
 const encoder = new Encoder();
 const decoder = new Decoder();
@@ -258,7 +258,7 @@ To handle [MessagePack Extension Types](https://github.com/msgpack/msgpack/blob/
 This is an example to setup custom extension types that handles `Map` and `Set` classes in TypeScript:
 
 ```typescript
-import { encode, decode, ExtensionCodec } from "@msgpack/msgpack";
+import { encode, decode, ExtensionCodec } from "@eyhn/msgpack-stream";
 
 const extensionCodec = new ExtensionCodec();
 
@@ -307,7 +307,7 @@ Not that extension types for custom objects must be `[0, 127]`, while `[-1, -128
 When you use an extension codec, it might be necessary to have encoding/decoding state to keep track of which objects got encoded/re-created. To do this, pass a `context` to the `EncodeOptions` and `DecodeOptions`:
 
 ```typescript
-import { encode, decode, ExtensionCodec } from "@msgpack/msgpack";
+import { encode, decode, ExtensionCodec } from "@eyhn/msgpack-stream";
 
 class MyContext {
   track(object: any) { /*...*/ }
@@ -338,7 +338,7 @@ extensionCodec.register({
 });
 
 // and later
-import { encode, decode } from "@msgpack/msgpack";
+import { encode, decode } from "@eyhn/msgpack-stream";
 
 const context = new MyContext();
 
@@ -352,7 +352,7 @@ This library does not handle BigInt by default, but you can handle it with `Exte
 
 ```typescript
 import { deepStrictEqual } from "assert";
-import { encode, decode, ExtensionCodec } from "@msgpack/msgpack";
+import { encode, decode, ExtensionCodec } from "@eyhn/msgpack-stream";
 
 const BIGINT_EXT_TYPE = 0; // Any in 0-127
 const extensionCodec = new ExtensionCodec();
@@ -397,7 +397,7 @@ import {
   EXT_TIMESTAMP,
   encodeTimeSpecToTimestamp,
   decodeTimestampToTimeSpec,
-} from "@msgpack/msgpack";
+} from "@eyhn/msgpack-stream";
 
 const extensionCodec = new ExtensionCodec();
 extensionCodec.register({
@@ -501,7 +501,7 @@ If you support IE11, import `core-js` in your application entrypoints, as this l
 
 NodeJS v10 is required, but NodeJS v12 or later is recommended because it includes the V8 feature of [Improving DataView performance in V8](https://v8.dev/blog/dataview).
 
-NodeJS before v10 will work by importing `@msgpack/msgpack/dist.es5+umd/msgpack`.
+NodeJS before v10 will work by importing `@eyhn/msgpack-stream/dist.es2015+umd/msgpack`.
 
 ### TypeScript Compiler / Type Definitions
 
@@ -525,10 +525,10 @@ buf = Buffer.from(JSON.stringify(obj));                           |  902100 |  5
 obj = JSON.parse(buf.toString("utf-8"));                          |  898700 |  5000 |  179740
 buf = require("msgpack-lite").encode(obj);                        |  411000 |  5000 |   82200
 obj = require("msgpack-lite").decode(buf);                        |  246200 |  5001 |   49230
-buf = require("@msgpack/msgpack").encode(obj);                    |  843300 |  5000 |  168660
-obj = require("@msgpack/msgpack").decode(buf);                    |  489300 |  5000 |   97860
-buf = /* @msgpack/msgpack */ encoder.encode(obj);                 | 1154200 |  5000 |  230840
-obj = /* @msgpack/msgpack */ decoder.decode(buf);                 |  448900 |  5000 |   89780
+buf = require("@eyhn/msgpack-stream").encode(obj);                    |  843300 |  5000 |  168660
+obj = require("@eyhn/msgpack-stream").decode(buf);                    |  489300 |  5000 |   97860
+buf = /* @eyhn/msgpack-stream */ encoder.encode(obj);                 | 1154200 |  5000 |  230840
+obj = /* @eyhn/msgpack-stream */ decoder.decode(buf);                 |  448900 |  5000 |   89780
 
 Note that `JSON` cases use `Buffer` to emulate I/O where a JavaScript string must be converted into a byte array encoded in UTF-8, whereas MessagePack modules deal with byte arrays.
 
@@ -536,13 +536,13 @@ Note that `JSON` cases use `Buffer` to emulate I/O where a JavaScript string mus
 
 ### NPM / npmjs.com
 
-The NPM package distributed in npmjs.com includes both ES2015+ and ES5 files:
+The NPM package distributed in npmjs.com includes both ES2015+ and ES2015 files:
 
 * `dist/` is compiled into ES2019 with CommomJS, provided for NodeJS v10
-* `dist.es5+umd/` is compiled into ES5 with UMD
-  * `dist.es5+umd/msgpack.min.js` - the minified file
-  * `dist.es5+umd/msgpack.js` - the non-minified file
-* `dist.es5+esm/` is compiled into ES5 with ES modules, provided for webpack-like bundlers and NodeJS's ESM-mode
+* `dist.es2015+umd/` is compiled into ES2015 with UMD
+  * `dist.es2015+umd/msgpack.min.js` - the minified file
+  * `dist.es2015+umd/msgpack.js` - the non-minified file
+* `dist.es2015+esm/` is compiled into ES2015 with ES modules, provided for webpack-like bundlers and NodeJS's ESM-mode
 
 If you use NodeJS and/or webpack, their module resolvers use the suitable one automatically.
 
@@ -551,7 +551,7 @@ If you use NodeJS and/or webpack, their module resolvers use the suitable one au
 This library is available via CDN:
 
 ```html
-<script crossorigin src="https://unpkg.com/@msgpack/msgpack"></script>
+<script crossorigin src="https://unpkg.com/@eyhn/msgpack-stream"></script>
 ```
 
 It loads `MessagePack` module to the global object.

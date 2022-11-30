@@ -8,9 +8,9 @@ const config = {
   mode: "production",
 
   entry: "./src/index.ts",
-  target: ["web", "es5"],
+  target: ["web", "es2015"],
   output: {
-    path: path.resolve(__dirname, "dist.es5+umd"),
+    path: path.resolve(__dirname, "dist.es2015+umd"),
     library: "MessagePack",
     libraryTarget: "umd",
     globalObject: "this",
@@ -32,9 +32,6 @@ const config = {
   },
 
   plugins: [
-    new CheckEsVersionPlugin({
-      esVersion: 5, // for IE11 support
-    }),
     new webpack.DefinePlugin({
       "process.env.TEXT_ENCODING": "undefined",
       "process.env.TEXT_DECODER": "undefined",

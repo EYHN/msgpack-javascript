@@ -7,7 +7,7 @@ const fs = require("fs");
 const msgpack = require("../src");
 
 const implementations = {
-  "@msgpack/msgpack": {
+  "@eyhn/msgpack-stream": {
     encode: require("..").encode,
     decode: require("..").decode,
   },

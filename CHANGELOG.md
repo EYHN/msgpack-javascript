@@ -1,4 +1,4 @@
-# This is the revision history of @msgpack/msgpack
+# This is the revision history of @eyhn/msgpack-stream
 
 ## 2.8.0 2022-09-02
 

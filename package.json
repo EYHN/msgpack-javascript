@@ -1,24 +1,24 @@
 {
-  "name": "@msgpack/msgpack",
-  "version": "2.8.0",
+  "name": "@eyhn/msgpack-stream",
+  "version": "2.8.4",
   "description": "MessagePack for ECMA-262/JavaScript/TypeScript",
   "author": "The MessagePack community",
   "license": "ISC",
   "main": "./dist/index.js",
-  "module": "./dist.es5+esm/index.mjs",
-  "cdn": "./dist.es5+umd/msgpack.min.js",
-  "unpkg": "./dist.es5+umd/msgpack.min.js",
+  "module": "./dist.es2015+esm/index.mjs",
+  "cdn": "./dist.es2015+umd/msgpack.min.js",
+  "unpkg": "./dist.es2015+umd/msgpack.min.js",
   "types": "./dist/index.d.ts",
   "sideEffects": false,
   "scripts": {
     "build": "npm publish --dry-run",
-    "prepare": "npm run clean && webpack --bail && tsc --build tsconfig.dist.json tsconfig.dist.es5+esm.json && ts-node tools/esmify.ts dist.es5+esm/*.js dist.es5+esm/*/*.js",
+    "prepare": "npm run clean && webpack --bail && tsc --build tsconfig.dist.json tsconfig.dist.es2015+esm.json && ts-node tools/esmify.ts dist.es2015+esm/*.js dist.es2015+esm/*/*.js",
     "prepublishOnly": "run-p 'test:dist:*' && npm run test:browser",
     "clean": "rimraf build dist dist.*",
     "test": "mocha 'test/**/*.test.ts'",
     "test:purejs": "TEXT_ENCODING=never mocha 'test/**/*.test.ts'",
     "test:te": "TEXT_ENCODING=force mocha 'test/**/*.test.ts'",
-    "test:dist:purejs": "TS_NODE_PROJECT=tsconfig.test-dist-es5-purejs.json npm run test:purejs -- --reporter=dot",
+    "test:dist:purejs": "TS_NODE_PROJECT=tsconfig.test-dist-es2015-purejs.json npm run test:purejs -- --reporter=dot",
     "test:cover": "npm run cover:clean && npm-run-all 'test:cover:*' && npm run cover:report",
     "test:cover:purejs": "npx nyc --no-clean npm run test:purejs",
     "test:cover:te": "npx nyc --no-clean npm run test:te",
@@ -94,7 +94,7 @@
     "mod.ts",
     "src/**/*.*",
     "dist/**/*.*",
-    "dist.es5+umd/**/*.*",
-    "dist.es5+esm/**/*.*"
+    "dist.es2015+umd/**/*.*",
+    "dist.es2015+esm/**/*.*"
   ]
 }

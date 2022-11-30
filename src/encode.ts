@@ -1,6 +1,7 @@
 import { Encoder } from "./Encoder";
 import type { ExtensionCodecType } from "./ExtensionCodec";
 import type { ContextOf, SplitUndefined } from "./context";
+import { StreamEncoder } from "./StreamEncoder";
 
 export type EncodeOptions<ContextType = undefined> = Partial<
   Readonly<{
@@ -19,6 +20,13 @@ export type EncodeOptions<ContextType = undefined> = Partial<
      * Defaults to 2048.
      */
     initialBufferSize: number;
+
+    /**
+     * The size of the stream buffer.
+     *
+     * Defaults to 2048.
+     */
+    streamBufferSize: number;
 
     /**
      * If `true`, the keys of an object is sorted. In other words, the encoded
@@ -78,4 +86,21 @@ export function encode<ContextType = undefined>(
     options.forceIntegerToFloat,
   );
   return encoder.encodeSharedRef(value);
+}
+
+export function encodeStream<ContextType = undefined>(
+  value: unknown,
+  options: EncodeOptions<SplitUndefined<ContextType>> = defaultEncodeOptions as any,
+): Iterable<Uint8Array> {
+  const encoder = new StreamEncoder(
+    options.extensionCodec,
+    (options as typeof options & { context: any }).context,
+    options.maxDepth,
+    options.streamBufferSize,
+    options.sortKeys,
+    options.forceFloat32,
+    options.ignoreUndefined,
+    options.forceIntegerToFloat,
+  );
+  return encoder.encode(value);
 }

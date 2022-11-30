@@ -1,5 +1,5 @@
 {
-  "name": "@msgpack/msgpack-benchmark",
+  "name": "@eyhn/msgpack-stream-benchmark",
   "private": true,
   "version": "0.0.0",
   "scripts": {

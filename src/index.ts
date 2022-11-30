@@ -1,17 +1,17 @@
 // Main Functions:
 
-import { encode } from "./encode";
-export { encode };
+import { encode, encodeStream } from "./encode";
+export { encode, encodeStream };
 import type { EncodeOptions } from "./encode";
 export type { EncodeOptions };
 
-import { decode, decodeMulti } from "./decode";
-export { decode, decodeMulti };
+import { decode, decodeMulti, decodeStream } from "./decode";
+export { decode, decodeMulti, decodeStream };
 import type { DecodeOptions } from "./decode";
 export { DecodeOptions };
 
-import { decodeAsync, decodeArrayStream, decodeMultiStream, decodeStream } from "./decodeAsync";
-export { decodeAsync, decodeArrayStream, decodeMultiStream, decodeStream };
+import { decodeAsync, decodeArrayStream, decodeMultiStream } from "./decodeAsync";
+export { decodeAsync, decodeArrayStream, decodeMultiStream };
 
 import { Decoder, DataViewIndexOutOfBoundsError } from "./Decoder";
 import { DecodeError } from "./DecodeError";

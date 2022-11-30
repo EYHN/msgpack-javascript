@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@msgpack/msgpack": "../../"
+    "@eyhn/msgpack-stream": "../../"
   },
   "devDependencies": {
     "lodash": "^4.17.20",

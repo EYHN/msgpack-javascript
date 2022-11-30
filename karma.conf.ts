@@ -38,7 +38,7 @@ export default function configure(config: any) {
       resolve: {
         extensions: [".ts", ".tsx", ".mjs", ".js", ".json", ".wasm"],
         alias: {
-          "@msgpack/msgpack": path.resolve(__dirname, "src"),
+          "@eyhn/msgpack-stream": path.resolve(__dirname, "src"),
         },
       },
       module: {

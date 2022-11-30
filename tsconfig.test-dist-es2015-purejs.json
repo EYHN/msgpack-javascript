@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.es2015.json",
+  "compilerOptions": {
+    "outDir": "./build/test-dist-es2015-purejs",
+    "noImplicitAny": false,
+    "paths": {
+      "@eyhn/msgpack-stream": ["./dist.es2015+umd/msgpack"]
+    }
+  }
+}

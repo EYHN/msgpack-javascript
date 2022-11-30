@@ -1,5 +1,5 @@
 #!/usr/bin/env deno run
 /* eslint-disable no-console */
-import * as msgpack from "https://esm.sh/@msgpack/msgpack/mod.ts";
+import * as msgpack from "https://esm.sh/@eyhn/msgpack-stream/mod.ts";
 
 console.log(msgpack.decode(msgpack.encode("Hello, world!")));

@@ -1,1 +1,1 @@
-export * from "./dist.es5+esm/index.mjs";
+export * from "./dist.es2015+esm/index.mjs";

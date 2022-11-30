@@ -1,4 +1,4 @@
-# Webpack Example for @msgpack/msgpack
+# Webpack Example for @eyhn/msgpack-stream
 
 This example demonstrates tree-shaking with webpack.
 
