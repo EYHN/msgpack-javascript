@@ -72,13 +72,3 @@ export function decodeMultiStream<ContextType>(
 
   return decoder.decodeStream(stream);
 }
-
-/**
- * @deprecated Use {@link decodeMultiStream()} instead.
- */
-export function decodeStream<ContextType>(
-  streamLike: ReadableStreamLike<ArrayLike<number> | BufferSource>,
-  options: DecodeOptions<SplitUndefined<ContextType>> = defaultDecodeOptions as any,
-): AsyncGenerator<unknown, void, unknown> {
-  return decodeMultiStream(streamLike, options);
-}

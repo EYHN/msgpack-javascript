@@ -1,6 +1,7 @@
 import { Decoder } from "./Decoder";
 import type { ExtensionCodecType } from "./ExtensionCodec";
 import type { ContextOf, SplitUndefined } from "./context";
+import { StreamDecoder } from "./StreamDecoder";
 
 export type DecodeOptions<ContextType = undefined> = Readonly<
   Partial<{
@@ -88,4 +89,21 @@ export function decodeMulti<ContextType = undefined>(
     options.maxExtLength,
   );
   return decoder.decodeMulti(buffer);
+}
+
+export function decodeStream<ContextType = undefined>(
+  read: (data: Uint8Array) => number,
+  options: DecodeOptions<SplitUndefined<ContextType>> = defaultDecodeOptions as any,
+): unknown {
+  const decoder = new StreamDecoder(
+    read,
+    options.extensionCodec,
+    (options as typeof options & { context: any }).context,
+    options.maxStrLength,
+    options.maxBinLength,
+    options.maxArrayLength,
+    options.maxMapLength,
+    options.maxExtLength,
+  );
+  return decoder.decode();
 }

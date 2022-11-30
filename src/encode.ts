@@ -1,6 +1,7 @@
 import { Encoder } from "./Encoder";
 import type { ExtensionCodecType } from "./ExtensionCodec";
 import type { ContextOf, SplitUndefined } from "./context";
+import { StreamEncoder } from "./StreamEncoder";
 
 export type EncodeOptions<ContextType = undefined> = Partial<
   Readonly<{
@@ -78,4 +79,23 @@ export function encode<ContextType = undefined>(
     options.forceIntegerToFloat,
   );
   return encoder.encodeSharedRef(value);
+}
+
+export function encodeStream<ContextType = undefined>(
+  value: unknown,
+  write: (data: Uint8Array) => void,
+  options: EncodeOptions<SplitUndefined<ContextType>> = defaultEncodeOptions as any,
+): void {
+  const encoder = new StreamEncoder(
+    write,
+    options.extensionCodec,
+    (options as typeof options & { context: any }).context,
+    options.maxDepth,
+    options.initialBufferSize,
+    options.sortKeys,
+    options.forceFloat32,
+    options.ignoreUndefined,
+    options.forceIntegerToFloat,
+  );
+  encoder.encode(value);
 }
